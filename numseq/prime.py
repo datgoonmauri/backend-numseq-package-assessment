@@ -20,7 +20,10 @@ def is_prime(x):
 
 def primes(n):
     """List of prime numbers less than n"""
-    is_not_prime = tuple([p for i in range(2, n) for p in range(i * 2, n, i)])
-    __primes = [is_prime for is_prime in range(2, n)
-                if is_prime not in is_not_prime]
-    return __primes
+    is_not_prime = {p for i in range(2, n)
+                    for p in range(i * 2, n, i)}
+    primes = (is_prime for is_prime in range(2, n)
+              if is_prime not in is_not_prime)
+    return primes
+
+

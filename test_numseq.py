@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 """Unit Test cases for Numseq Package"""
 
-import unittest
-import timeit
 import importlib
+import timeit
 import types
+import unittest
+
 
 numseq_root = 'numseq'  # change this to 'soln.numseq' to debug solution
 
@@ -32,11 +33,11 @@ triangles = (
     780, 820, 861, 903, 946, 990, 1035, 1081, 1128, 1176, 1225,
     1275, 1326, 1378, 1431
 )
-fibs = (
+fibs = [
     0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89,
     144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946,
     17711, 28657, 46368, 75025, 121393, 196418, 317811
-)
+]
 
 
 def numseq_importer(module_name):
@@ -58,7 +59,8 @@ class TestNumseq(unittest.TestCase):
         self.assertIsInstance(fib, types.ModuleType, fib)
         # just test first 30 terms
         for n, f in enumerate(fibs):
-            self.assertEqual(fib.fib(n), fibs[n], 'The Fibonacci terms are incorrect')
+            self.assertEqual(fib.fib(n), fibs[n],
+                             'The Fibonacci terms are incorrect')
 
     # def test_fib_performance(self):
     #     """Test speed performance of fibonacci algorithm"""
@@ -70,7 +72,8 @@ class TestNumseq(unittest.TestCase):
         geo = numseq_importer('geo')
         self.assertIsInstance(geo, types.ModuleType, geo)
         for n in range(-1000, 1000):
-            self.assertEqual(geo.square(n), n*n, 'The square terms are incorrect')
+            self.assertEqual(geo.square(n), n*n,
+                             'The square terms are incorrect')
 
     def test_cube(self):
         """test importability and correctness of cube terms"""
@@ -94,9 +97,11 @@ class TestNumseq(unittest.TestCase):
 
         for n in range(max(primes)):
             if n in primes:
-                self.assertTrue(prime.is_prime(n), str(n) + ' is a prime number')
+                self.assertTrue(prime.is_prime(n), str(n) +
+                                ' is a prime number')
             else:
-                self.assertFalse(prime.is_prime(n), str(n) + ' is NOT a prime number')
+                self.assertFalse(prime.is_prime(n), str(n) +
+                                 ' is NOT a prime number')
 
         self.assertTrue(prime.is_prime(999983), '999983 is prime')
         self.assertFalse(prime.is_prime(999981), '999981 is not prime')
@@ -131,7 +136,8 @@ class TestCodeQuality(unittest.TestCase):
             ).repeat(number=1, repeat=1)[0]
         hint = (
             'The primes(n) function took {} seconds to run,\n'
-            'which exceeds the allowed O(n) threshold of 1.5 seconds'.format(prime_time)
+            'which exceeds the allowed O(n) threshold of 1.5 seconds'
+            .format(prime_time)
             )
         self.assertLessEqual(prime_time, 1.5, hint)
 
